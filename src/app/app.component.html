@@ -1,0 +1,113 @@
+<!-- <div class="page">
+
+  <div class="login-card">
+
+    <div class="header">
+
+      <h1>Welcome Back</h1>
+
+      <p>
+        Angular OAuth2 / OpenID Connect Demo
+      </p>
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn btn-primary"
+        (click)="login()">
+        Login with Keycloak
+      </button>
+
+      <button
+        class="btn btn-user"
+        (click)="callUserEndpoint()">
+        Call Normal User API
+      </button>
+
+      <button
+        class="btn btn-admin"
+        (click)="callAdminEndpoint()">
+        Call Admin API
+      </button>
+
+      <button
+        class="btn btn-spa"
+        (click)="callSupportEndpoint()">
+        Call Support API
+      </button>
+
+      <button
+        class="btn btn-danger"
+        (click)="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+  <div
+    class="response-card"
+    *ngIf="backendResponse">
+
+    <h2>Backend Response</h2>
+
+    <div class="response-content">
+      {{ backendResponse }}
+    </div>
+
+  </div>
+
+</div> -->
+
+
+
+<div class="container" style="padding: 20px; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
+  <h2>{{ title }}</h2>
+  <hr />
+
+  <!-- SECTION 1: PUBLIC USER REGISTRATION (PORT 8083) -->
+  <div class="card" style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+    <h3>Step 1: Public Registration Management (No Security - Port 8083)</h3>
+    <form (ngSubmit)="onRegisterSubmit()" style="display: grid; gap: 10px; max-width: 400px;">
+      <input type="text" [(ngModel)]="newUser.userName" name="userName" placeholder="Username" required style="padding: 8px;" />
+      <input type="email" [(ngModel)]="newUser.email" name="email" placeholder="Email" required style="padding: 8px;" />
+      <input type="text" [(ngModel)]="newUser.firstName" name="firstName" placeholder="First Name" required style="padding: 8px;" />
+      <input type="text" [(ngModel)]="newUser.lastName" name="lastName" placeholder="Last Name" required style="padding: 8px;" />
+      <input type="password" [(ngModel)]="newUser.password" name="password" placeholder="Password" required style="padding: 8px;" />
+      <button type="submit" style="background-color: #28a745; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 3px;">
+        Register / Create User in DB
+      </button>
+    </form>
+  </div>
+
+  <!-- SECTION 2: AUTHENTICATED KEYCLOAK SECTOR (PORT 8080 & 8082) -->
+  <div class="card" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+    <h3>Step 2: Authentication & Secure Resource Access</h3>
+    
+    <div style="margin-bottom: 15px;">
+      <button *ngIf="!isLoggedIn" (click)="login()" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 3px; margin-right: 10px;">
+        Login via Keycloak
+      </button>
+      <button *ngIf="isLoggedIn" (click)="logout()" style="background-color: #dc3545; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 3px;">
+        Logout
+      </button>
+    </div>
+
+    <div *ngIf="isLoggedIn" style="margin-top: 15px;">
+      <p style="color: green; font-weight: bold;">✓ Authenticated successfully with Keycloak.</p>
+      <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button (click)="callUserEndpoint()" style="padding: 8px 15px; cursor: pointer;">Call User Endpoint (8082)</button>
+        <button (click)="callAdminEndpoint()" style="padding: 8px 15px; cursor: pointer;">Call Admin Endpoint (8082)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVER RESPONSE TERMINAL DISPLAY -->
+  <div *ngIf="backendResponse" style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-left: 5px solid #6c757d; white-space: pre-wrap;">
+    <strong>Server Execution Response:</strong><br />
+    {{ backendResponse }}
+  </div>
+</div>
