@@ -5,7 +5,7 @@ export const environment = {
   auth: {
 
     issuer:
-      'http://localhost:8081/realms/yash_realm',
+      'http://localhost:8080/realms/yash_realm',
 
     redirectUri:
       'http://localhost:4200',
